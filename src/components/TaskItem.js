@@ -1,5 +1,7 @@
 const TaskItem = (props) => {
-  const deleteClickHandler = () => {};
+  const deleteClickHandler = () => {
+    props.onDelete(props.info.id);
+  };
 
   return (
     <li>

@@ -24,6 +24,12 @@ const App = () => {
     setNewTask("");
   };
 
+  const taskDeleteHandler = (taskId) => {
+    setTaskList((prevState) => {
+      return prevState.filter((task) => task.id !== taskId);
+    });
+  };
+
   return (
     <div>
       <form onSubmit={formSubmitHandler}>
@@ -36,7 +42,7 @@ const App = () => {
         />
         <button type="submit">Enter Task</button>
       </form>
-      <TaskList tasks={taskList} />
+      <TaskList tasks={taskList} onTaskDelete={taskDeleteHandler} />
     </div>
   );
 };
