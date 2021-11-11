@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TaskList from "./components/TaskList";
 import uniqid from "uniqid";
+import Form from "./components/Form";
 
 const STARTER_TASK_LIST = [
   { text: "Task 1", id: uniqid() },
@@ -11,20 +12,11 @@ const STARTER_TASK_LIST = [
 
 const App = () => {
   const [taskList, setTaskList] = useState(STARTER_TASK_LIST);
-  const [newTask, setNewTask] = useState("");
 
-  const inputChangeHandler = (e) => {
-    setNewTask(e.target.value);
-  };
-
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
-    if (newTask) {
-      setTaskList((prevState) => {
-        return [{ text: newTask, id: uniqid() }, ...prevState];
-      });
-      setNewTask("");
-    }
+  const formSubmitHandler = (task) => {
+    setTaskList((prevState) => {
+      return [{ text: task, id: uniqid() }, ...prevState];
+    });
   };
 
   const taskDeleteHandler = (taskId) => {
@@ -45,16 +37,7 @@ const App = () => {
 
   return (
     <div>
-      <form onSubmit={formSubmitHandler}>
-        <input
-          type="text"
-          id="taskInput"
-          placeholder="Enter task"
-          value={newTask}
-          onChange={inputChangeHandler}
-        />
-        <button type="submit">Enter Task</button>
-      </form>
+      <Form onFormSubmit={formSubmitHandler} />
       <TaskList
         tasks={taskList}
         onTaskDelete={taskDeleteHandler}
