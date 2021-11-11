@@ -1,8 +1,11 @@
 import { useState } from "react";
 
+import "./TaskItem.css";
+
 const TaskItem = (props) => {
   const [editedTask, setEditedTask] = useState("");
   const [editVisible, setEditVisible] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
   const deleteClickHandler = () => {
     props.onDelete(props.info.id);
@@ -10,6 +13,10 @@ const TaskItem = (props) => {
 
   const editClickHandler = () => {
     setEditVisible(true);
+  };
+
+  const editCompleteHandler = () => {
+    setIsComplete(isComplete ? false : true);
   };
 
   const changeHandler = (e) => {
@@ -42,9 +49,9 @@ const TaskItem = (props) => {
   }
 
   return (
-    <li>
+    <li className={`${isComplete ? "complete" : ""}`}>
       <div>
-        {props.info.text}
+        <span onClick={editCompleteHandler}>{props.info.text}</span>
         <button onClick={editClickHandler}>Edit</button>
         <button onClick={deleteClickHandler}>Delete</button>
       </div>
