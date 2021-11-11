@@ -2,14 +2,15 @@ import { useState } from "react";
 import TaskList from "./components/TaskList";
 import uniqid from "uniqid";
 
-const App = () => {
-  const [taskList, setTaskList] = useState([
-    { text: "Task 1", id: uniqid() },
-    { text: "Task 2", id: uniqid() },
-    { text: "Task 3", id: uniqid() },
-    { text: "Task 4", id: uniqid() },
-  ]);
+const STARTER_TASK_LIST = [
+  { text: "Task 1", id: uniqid() },
+  { text: "Task 2", id: uniqid() },
+  { text: "Task 3", id: uniqid() },
+  { text: "Task 4", id: uniqid() },
+];
 
+const App = () => {
+  const [taskList, setTaskList] = useState(STARTER_TASK_LIST);
   const [newTask, setNewTask] = useState("");
 
   const inputChangeHandler = (e) => {
@@ -18,10 +19,12 @@ const App = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    setTaskList((prevState) => {
-      return [{ text: newTask, id: uniqid() }, ...prevState];
-    });
-    setNewTask("");
+    if (newTask) {
+      setTaskList((prevState) => {
+        return [{ text: newTask, id: uniqid() }, ...prevState];
+      });
+      setNewTask("");
+    }
   };
 
   const taskDeleteHandler = (taskId) => {
@@ -43,10 +46,10 @@ const App = () => {
   return (
     <div>
       <form onSubmit={formSubmitHandler}>
-        <label htmlFor="taskInput">Enter task</label>
         <input
           type="text"
           id="taskInput"
+          placeholder="Enter task"
           value={newTask}
           onChange={inputChangeHandler}
         />

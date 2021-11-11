@@ -18,9 +18,11 @@ const TaskItem = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    props.onEdit(props.info.id, editedTask);
-    setEditVisible(false);
-    setEditedTask("");
+    if (editedTask) {
+      props.onEdit(props.info.id, editedTask);
+      setEditVisible(false);
+      setEditedTask("");
+    }
   };
 
   if (editVisible) {
