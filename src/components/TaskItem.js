@@ -20,6 +20,7 @@ const TaskItem = (props) => {
     e.preventDefault();
     props.onEdit(props.info.id, editedTask);
     setEditVisible(false);
+    setEditedTask("");
   };
 
   if (editVisible) {
