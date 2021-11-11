@@ -11,6 +11,7 @@ const TaskList = (props) => {
             id={task.id}
             info={task}
             onDelete={props.onTaskDelete}
+            onEdit={props.onTaskEdit}
           />
         ))}
       </ul>

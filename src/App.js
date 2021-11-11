@@ -30,6 +30,16 @@ const App = () => {
     });
   };
 
+  const taskEditHandler = (taskId, newTaskText) => {
+    setTaskList((prevState) => {
+      return prevState.map((task) => {
+        if (task.id === taskId) {
+          return { text: newTaskText, id: taskId };
+        } else return task;
+      });
+    });
+  };
+
   return (
     <div>
       <form onSubmit={formSubmitHandler}>
@@ -42,7 +52,11 @@ const App = () => {
         />
         <button type="submit">Enter Task</button>
       </form>
-      <TaskList tasks={taskList} onTaskDelete={taskDeleteHandler} />
+      <TaskList
+        tasks={taskList}
+        onTaskDelete={taskDeleteHandler}
+        onTaskEdit={taskEditHandler}
+      />
     </div>
   );
 };
